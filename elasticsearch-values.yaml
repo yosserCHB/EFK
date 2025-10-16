@@ -1,0 +1,20 @@
+replicas: 1
+minimumMasterNodes: 1
+antiAffinity: "soft"
+resources:
+  requests:
+    cpu: "250m"
+    memory: "512Mi"
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+nodeSelector:
+  kubernetes.io/hostname: triwebtestworker2-virtual-machine
+
+volumeClaimTemplate:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: "local-path"

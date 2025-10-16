@@ -1,0 +1,32 @@
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: "300m"
+    memory: "1Gi"
+  limits:
+    cpu: "1"
+    memory: "2Gi"
+
+nodeSelector:
+  kubernetes.io/hostname: triwebtestworker2-virtual-machine
+
+elasticsearchHosts: "https://elasticsearch-master.logging.svc:9200"
+
+elasticsearchUsername: "elastic"
+elasticsearchPassword: "zq8szgvXDzpkV3wD"
+
+elasticsearchSSL:
+  verificationMode: "certificate"
+  certificateAuthorities:
+    - /usr/share/kibana/config/certs/ca.crt
+
+initContainers: []
+
+# Désactivation du montage du token par défaut
+automountToken: false
+
+# Désactivation de l'authentification par défaut (empêche les hooks de planter)
+security:
+  authc:
+    providers: []

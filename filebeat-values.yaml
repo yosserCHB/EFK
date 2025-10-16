@@ -1,0 +1,47 @@
+replicaCount: 1
+
+nodeSelector:
+  kubernetes.io/hostname: triwebtestworker2-virtual-machine
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "200Mi"
+  limits:
+    cpu: "500m"
+    memory: "500Mi"
+
+filebeatConfig:
+  filebeat.yml: |
+    filebeat.autodiscover:
+      providers:
+        - type: kubernetes
+          node: ${NODE_NAME}
+          hints.enabled: true
+          hints.default_config:
+            type: container
+            paths:
+              - /var/log/containers/*.log
+
+    processors:
+      - add_cloud_metadata: {}
+      - add_host_metadata: {}
+
+    output.elasticsearch:
+      hosts: ["https://elasticsearch-master.logging.svc:9200"]
+      username: "elastic"
+      password: "zq8szgvXDzpkV3wD"
+      ssl:
+        verification_mode: "none"
+        
+# Donne le droit à Filebeat de lire les logs des pods
+daemonset:
+  enabled: true
+
+deployment:
+  enabled: false
+
+tolerations:
+  - key: "node-role.kubernetes.io/master"
+    operator: "Exists"
+    effect: "NoSchedule"
