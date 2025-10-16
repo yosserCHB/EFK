@@ -11,6 +11,7 @@ helm repo update
 🧱 2. Créer un namespace pour le logging
 kubectl create namespace logging
 (Créer les fichier .yaml )
+
 🧠 3. Déployer Elasticsearch avec Helm
 helm install elasticsearch elastic/elasticsearch -n logging -f elasticsearch-values.yaml
 
