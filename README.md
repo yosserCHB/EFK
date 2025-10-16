@@ -2,6 +2,7 @@
 Stack Elasticsearch, filbeat, and Kibana for log management with helm
 
 ⚙️ Installation de la stack EFK avec Helm
+
 🧩 1. Ajouter les dépôts Helm nécessaires
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add elastic https://helm.elastic.co
@@ -29,12 +30,14 @@ helm install kibana elastic/kibana -n logging -f kibana-values.yaml
 🔑 7. Récupérer les identifiants nécessaires
 Mot de passe Elasticsearch :
 kubectl get secrets --namespace=logging elasticsearch-master-credentials -o jsonpath='{.data.password}' | base64 -d
+
 Token d’accès Kibana :
 kubectl get secrets --namespace=logging kibana-kibana-es-token -o jsonpath='{.data.token}' | base64 -d
 
 🧾 8. Lister tous les pods dans le namespace logging
 kubectl get pods -n logging
 
+Accés à kibana 
 
 
 
